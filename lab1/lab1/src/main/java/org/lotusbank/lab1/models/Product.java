@@ -13,4 +13,6 @@ public class Product {
     private String Name;
     private String Description;
     private Double Price;
+
+    private PackageContainer packageContainer;
 }
