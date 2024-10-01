@@ -17,6 +17,12 @@ public class BookServiceImpl implements BookService {
             int key = i + 1;
             books.add(new Book(key, "Book Title " + key, "200" + key, 2000 + key * 10));
         }
+
+        //V2 Data
+        for (int i = 10; i < 15; i++) {
+            int key = i + 1;
+            books.add(new Book(key, "Book Title " + key, "200" + key, 2000 + key * 10));
+        }
     }
 
     @Override
@@ -61,5 +67,19 @@ public class BookServiceImpl implements BookService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public List<Book> getBooksV2() {
+        for (int i = 20; i < 25; i++) {
+            int key = i + 1;
+            books.add(new Book(key, "Book Title " + key, "200" + key, 2000 + key * 10));
+        }
+        return books;
+    }
+
+    @Override
+    public Book getBookV2(int id) {
+        return books.stream().filter(c -> c.getId().equals(id+10)).findFirst().orElseGet(null);
     }
 }

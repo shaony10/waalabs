@@ -1,0 +1,56 @@
+GET http://localhost:8080/versioning/books
+Accept: application/v1+json
+
+###
+GET http://localhost:8080/versioning/books
+Accept: application/v2+json
+
+###
+GET http://localhost:8080/versioning/books/2
+X_API_VERSION:1
+
+###
+GET http://localhost:8080/versioning/books/2
+X_API_VERSION:2
+
+
+###
+GET http://localhost:8080/versioning/books/v1/2
+
+###
+GET http://localhost:8080/versioning/books/v2/2
+
+###
+GET http://localhost:8080/versioning/books/2?version=1
+
+###
+GET http://localhost:8080/versioning/books/2?version=2
+
+
+###
+POST http://localhost:8080/versioning/books
+Content-Type: application/json
+
+{
+  "Id": 0,
+  "Title": "Book Title 16",
+  "Isbn": "20016",
+  "Price": 299.00
+}
+
+
+###
+PUT http://localhost:8080/versioning/books
+Content-Type: application/json
+
+{
+  "Id": 16,
+  "Title": "Book Title Modified",
+  "Isbn": "2016 updated",
+  "Price": 299.00
+}
+
+
+
+###
+DELETE http://localhost:8080/versioning/books/2
