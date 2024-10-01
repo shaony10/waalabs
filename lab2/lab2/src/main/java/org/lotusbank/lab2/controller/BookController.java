@@ -3,6 +3,7 @@ package org.lotusbank.lab2.controller;
 import org.lotusbank.lab2.model.Book;
 import org.lotusbank.lab2.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,27 +15,42 @@ public class BookController {
     @Autowired
     private BookService bookService;
     @GetMapping("")
-    public List<Book> getBooks(){
-        return bookService.getBooks();
+    public ResponseEntity<List<Book>> getBooks(){
+        return ResponseEntity
+                .ok()
+                .header("Content-Type","application/json")
+                .body(bookService.getBooks());
     }
 
     @GetMapping("/{id}")
-    public Book getBook(@PathVariable int id){
-        return bookService.getBook(id);
+    public ResponseEntity<Book> getBook(@PathVariable int id){
+        return ResponseEntity
+                .ok()
+                .header("Content-Type","application/json")
+                .body(bookService.getBook(id));
     }
 
     @PostMapping("")
-    public Book addBook(@RequestBody Book book){
-        return bookService.addBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody Book book){
+        return ResponseEntity
+                .ok()
+                .header("Content-Type","application/json")
+                .body(bookService.addBook(book));
     }
 
     @PutMapping("")
-    public Book updateBook(@RequestBody Book book){
-        return bookService.updateBook(book);
+    public ResponseEntity<Book> updateBook(@RequestBody Book book){
+        return ResponseEntity
+                .ok()
+                .header("Content-Type","application/json")
+                .body(bookService.updateBook(book));
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteBook(@PathVariable int id){
-        return bookService.deleteBook(id);
+    public ResponseEntity<Boolean> deleteBook(@PathVariable int id){
+        return ResponseEntity
+                .ok()
+                .header("Content-Type","application/json")
+                .body(bookService.deleteBook(id));
     }
 }
