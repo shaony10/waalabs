@@ -22,4 +22,19 @@ public class BookController {
     public Book getBook(@PathVariable int id){
         return bookService.getBook(id);
     }
+
+    @PostMapping("")
+    public Book addBook(@RequestBody Book book){
+        return bookService.addBook(book);
+    }
+
+    @PutMapping("")
+    public Book updateBook(@RequestBody Book book){
+        return bookService.updateBook(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteBook(@PathVariable int id){
+        return bookService.deleteBook(id);
+    }
 }

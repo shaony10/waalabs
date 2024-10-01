@@ -3,3 +3,32 @@ GET http://localhost:8080/books
 
 ###
 GET http://localhost:8080/books/2
+
+
+###
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "Title": "Book Title 6",
+  "Isbn": "2006",
+  "Price": 299.00
+}
+
+
+###
+PUT http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "Id": 6,
+  "Title": "Book Title Modified",
+  "Isbn": "2006 updated",
+  "Price": 299.00
+}
+
+
+
+###
+DELETE http://localhost:8080/books/2
