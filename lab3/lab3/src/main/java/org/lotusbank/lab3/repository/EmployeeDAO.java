@@ -1,6 +1,6 @@
 package org.lotusbank.lab3.repository;
 
-import org.lotusbank.lab3.model.Employee;
+import org.lotusbank.lab3.model.onetomanybi.Employee;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

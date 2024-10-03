@@ -1,16 +1,17 @@
-package org.lotusbank.lab3.model;
+package org.lotusbank.lab3.model.manytooneuni;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Employee {
+public class Book {
     @Id
     private int id;
+
     private String name;
-    private int age;
+    private String isbn;
 
     @ManyToOne
-    private Department department;
+    private Publisher publisher;
 }

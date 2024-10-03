@@ -1,4 +1,4 @@
-package org.lotusbank.lab3.model;
+package org.lotusbank.lab3.model.onetomanybi;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,6 +12,6 @@ public class Department {
     private  int id;
     private String name;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany
     private List<Employee> employees;
 }

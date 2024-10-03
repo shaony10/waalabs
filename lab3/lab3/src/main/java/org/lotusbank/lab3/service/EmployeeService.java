@@ -1,7 +1,6 @@
 package org.lotusbank.lab3.service;
 
-import org.lotusbank.lab3.model.Employee;
-import org.springframework.stereotype.Service;
+import org.lotusbank.lab3.model.onetomanybi.Employee;
 
 import java.util.List;
 

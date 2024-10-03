@@ -1,6 +1,6 @@
 package org.lotusbank.lab3.service;
 
-import org.lotusbank.lab3.model.Employee;
+import org.lotusbank.lab3.model.onetomanybi.Employee;
 import org.lotusbank.lab3.repository.EmployeeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
