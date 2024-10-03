@@ -7,7 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
-@Entity
+//TODO: @Entity
 public class Course {
     @Id
     private int id;

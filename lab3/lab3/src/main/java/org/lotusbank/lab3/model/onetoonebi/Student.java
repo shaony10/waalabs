@@ -1,13 +1,13 @@
-package org.lotusbank.lab3.model.manytomanybi;
+package org.lotusbank.lab3.model.onetoonebi;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.util.List;
 
-//TODO: @Entity
+@Entity
 public class Student {
     @Id
     private int id;
@@ -15,6 +15,6 @@ public class Student {
     private String firstname;
     private String lastname;
 
-    @ManyToMany
-    private List<Course> courses;
+    @OneToOne
+    private Major major;
 }
