@@ -6,7 +6,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
-@Entity
+//TODO: Entity
 public class Publisher {
     @Id
     private int id;

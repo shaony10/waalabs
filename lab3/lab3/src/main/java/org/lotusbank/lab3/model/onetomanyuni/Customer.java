@@ -6,7 +6,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
-@Entity
+//TODO: @Entity
 public class Customer {
     @Id
     private  int id;

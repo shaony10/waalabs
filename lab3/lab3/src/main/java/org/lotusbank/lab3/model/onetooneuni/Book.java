@@ -1,10 +1,11 @@
-package org.lotusbank.lab3.model.manytooneuni;
+package org.lotusbank.lab3.model.onetooneuni;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
-//TODO: @Entity
+@Entity
 public class Book {
     @Id
     private int id;
@@ -12,6 +13,6 @@ public class Book {
     private String name;
     private String isbn;
 
-    @ManyToOne
-    private Publisher publisher;
+    @OneToOne
+    private Reservation reservation;
 }
