@@ -1,5 +1,6 @@
 import './App.scss'
 import avatar from './images/bozai.png'
+import AddComment from "./components/AddComment";
 
 
 // Comment List data
@@ -86,17 +87,7 @@ const App = () => {
               <img className="bili-avatar-img" src={avatar} alt="Profile" />
             </div>
           </div>
-          <div className="reply-box-wrap">
-            {/* comment */}
-            <textarea
-              className="reply-box-textarea"
-              placeholder="tell something..."
-            />
-            {/* post button */}
-            <div className="reply-box-send">
-              <div className="send-text">post</div>
-            </div>
-          </div>
+         <AddComment/>
         </div>
         {/* comment list */}
         <div className="reply-list">
