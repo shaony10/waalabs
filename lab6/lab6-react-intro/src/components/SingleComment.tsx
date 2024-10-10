@@ -1,4 +1,11 @@
-export default function SingleComment() {
+import {CommentModel} from "../model/CommentModel";
+
+type PropsType = {
+    comment: CommentModel
+}
+
+export default function SingleComment(props:PropsType) {
+    const {comment} = props;
     return (
         <>
             {/* comment item */}
@@ -20,12 +27,12 @@ export default function SingleComment() {
                     </div>
                     {/* comment content */}
                     <div className="root-reply">
-                        <span className="reply-content">This is reply</span>
+                        <span className="reply-content">{comment.content}</span>
                         <div className="reply-info">
                             {/* comment created time */}
-                            <span className="reply-time">{'2023-11-11'}</span>
+                            <span className="reply-time">{comment.ctime}</span>
                             {/* total likes */}
-                            <span className="reply-time">Like:{100}</span>
+                            <span className="reply-time">Like:{comment.like}</span>
                             <span className="delete-btn">
                     Delete
                   </span>

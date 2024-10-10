@@ -1,4 +1,7 @@
-export default function NavbarComponent() {
+import {useState} from "react";
+
+export default function NavbarComponent(props:{count:number}) {
+    const [count, setCount] = useState(props.count)
     return (
         <>
             {/* Nav Tab */}
@@ -7,7 +10,7 @@ export default function NavbarComponent() {
                     <li className="nav-title">
                         <span className="nav-title-text">Comments</span>
                         {/* Like */}
-                        <span className="total-reply">{10}</span>
+                        <span className="total-reply">{count}</span>
                     </li>
                     <li className="nav-sort">
                         {/* highlight class name： active */}
