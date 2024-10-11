@@ -4,8 +4,9 @@ import AddComment from "./components/AddComment";
 import SingleComment from "./components/SingleComment";
 import NavbarComponent from "./components/NavbarComponent";
 import {CommentModel} from "./model/CommentModel";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {defaultList} from "./data/data";
+import _ from "lodash";
 
 
 // Comment List data
@@ -16,18 +17,34 @@ const App = () => {
     const [comments,
         setComments] = useState(initialComments)
 
+    const orderByTop = ()=>{
+      setComments(_.orderBy(comments, ['like'], ['desc']));
+    }
+
+    const orderByNewest = ()=>{
+        setComments(_.orderBy(comments, ['ctime'], ['asc']));
+    }
     const populateInitialComments = () => {
+
         for (const defaultItem of defaultList) {
             comments.push({
                 ...defaultItem
             } as CommentModel);
         }
+
+        orderByTop();
     }
 
-    populateInitialComments();
+    useEffect(()=>{
+        populateInitialComments();
+    },[this]);
+
+
     return (
         <div className="app">
-            <NavbarComponent count={comments.length}/>
+            <NavbarComponent count={comments.length}
+                             orderByTop={orderByTop}
+                             orderByNewest={orderByNewest}/>
 
             <div className="reply-wrap">
                 {/* comments */}
@@ -43,7 +60,8 @@ const App = () => {
                 {/* comment list */}
                 <div className="reply-list">
                     {comments.map(comment => (
-                        <SingleComment comment={comment}/>))}
+                        <SingleComment comment={comment}
+                                       key={comment.rpid}/>))}
 
                 </div>
             </div>

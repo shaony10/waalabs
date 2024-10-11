@@ -1,7 +1,25 @@
+import classnames from "classnames";
 import {useState} from "react";
 
-export default function NavbarComponent(props:{count:number}) {
-    const [count, setCount] = useState(props.count)
+export type NavProps={
+    count:number,
+    orderByTop:any,
+    orderByNewest:any
+}
+export default function NavbarComponent(props: NavProps) {
+    const [count, setCount] = useState(props.count);
+    const [isTop, setIsTop] = useState(true);
+
+
+    const orderByTopHandler = () => {
+        setIsTop(true);
+        props.orderByTop();
+
+    }
+    const orderByNewestHandler = () => {
+        setIsTop(false);
+        props.orderByNewest();
+    }
     return (
         <>
             {/* Nav Tab */}
@@ -14,8 +32,10 @@ export default function NavbarComponent(props:{count:number}) {
                     </li>
                     <li className="nav-sort">
                         {/* highlight class name： active */}
-                        <span className='nav-item'>Top</span>
-                        <span className='nav-item'>Newest</span>
+                        <span className={classnames('nav-item', {active: isTop})}
+                              onClick={orderByTopHandler}>Top</span>
+                        <span className={classnames('nav-item', {active: !isTop})}
+                              onClick={orderByNewestHandler}>Newest</span>
                     </li>
                 </ul>
             </div>

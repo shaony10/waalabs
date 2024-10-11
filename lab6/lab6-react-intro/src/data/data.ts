@@ -14,7 +14,7 @@ const defaultList = [
         content: 'Nice, well done Shawal',
         // created datetime
         ctime: '10-18 08:15',
-        like: 88,
+        like: 38,
     },
     {
         rpid: 2,
@@ -24,7 +24,7 @@ const defaultList = [
             uname: 'Song Xu',
         },
         content: 'I search for you thousands of times, from dawn till dusk.',
-        ctime: '11-13 11:29',
+        ctime: '10-13 11:29',
         like: 88,
     },
     {
