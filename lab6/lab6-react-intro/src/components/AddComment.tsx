@@ -1,35 +1,26 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import { MouseEvent, useRef} from "react";
 
 export default function AddComment(props: {onAdded:any}){
-    const [formData, setFormData] = useState({
-        content: ''
-    });
+    const textareRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleInput = (e:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
-    }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(formData);
-        props.onAdded(formData.content);
-        setFormData({ content: ''})
+        props.onAdded(textareRef.current?.value);
     }
     return (<>
-        <form className="reply-box-wrap" onSubmit={handleSubmit}>
+        <form className="reply-box-wrap" >
             {/* comment */}
             <textarea
                 className="reply-box-textarea"
                 placeholder="tell something..."
-                value={formData.content}
                 name="content"
-                onChange={handleInput}
+                ref={textareRef}
             />
             {/* post button */}
-            <button className="reply-box-send">
+            <button className="reply-box-send" onClick={handleSubmit}>
                 <div className="send-text">post</div>
             </button>
         </form>
     </>)
-
 }
