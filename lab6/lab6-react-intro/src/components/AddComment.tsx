@@ -1,17 +1,35 @@
-export default function AddComment(){
+import {ChangeEvent, FormEvent, useState} from "react";
 
+export default function AddComment(props: {onAdded:any}){
+    const [formData, setFormData] = useState({
+        content: ''
+    });
+
+    const handleInput = (e:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(formData);
+        props.onAdded(formData.content);
+        setFormData({ content: ''})
+    }
     return (<>
-        <div className="reply-box-wrap">
+        <form className="reply-box-wrap" onSubmit={handleSubmit}>
             {/* comment */}
             <textarea
                 className="reply-box-textarea"
                 placeholder="tell something..."
+                value={formData.content}
+                name="content"
+                onChange={handleInput}
             />
             {/* post button */}
-            <div className="reply-box-send">
+            <button className="reply-box-send">
                 <div className="send-text">post</div>
-            </div>
-        </div>
+            </button>
+        </form>
     </>)
 
 }

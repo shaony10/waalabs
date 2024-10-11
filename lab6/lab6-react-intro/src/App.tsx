@@ -7,42 +7,56 @@ import {CommentModel} from "./model/CommentModel";
 import {useEffect, useState} from "react";
 import {defaultList} from "./data/data";
 import _ from "lodash";
+import dayjs from "dayjs";
 
 
 // Comment List data
 
 
-const initialComments: CommentModel[] = [];
+let initialComments: CommentModel[] = [];
+const populateInitialComments = () => {
+
+    for (const defaultItem of defaultList) {
+        initialComments.push({
+            ...defaultItem
+        } as CommentModel);
+    }
+
+    initialComments = _.orderBy(initialComments, ['like'], ['desc'])
+}
+
+populateInitialComments();
 const App = () => {
     const [comments,
         setComments] = useState(initialComments)
 
-    const orderByTop = ()=>{
-      setComments(_.orderBy(comments, ['like'], ['desc']));
+    const [count, setCount]= useState(initialComments.length);
+    const orderByTop = () => {
+        setComments(_.orderBy(comments, ['like'], ['desc']));
     }
 
-    const orderByNewest = ()=>{
+    const orderByNewest = () => {
         setComments(_.orderBy(comments, ['ctime'], ['asc']));
     }
-    const populateInitialComments = () => {
 
-        for (const defaultItem of defaultList) {
-            comments.push({
-                ...defaultItem
-            } as CommentModel);
+
+
+    const onNewCommentAdded = (comment: string) => {
+        const newComment: CommentModel = {
+            rpid: comments.length + 1,
+            content: comment,
+            ctime: dayjs().format('MM-DD HH:mm').toString(),
+            like: 0
+
         }
 
-        orderByTop();
+        setComments([newComment, ...comments]);
+        setCount(comments.length);
     }
-
-    useEffect(()=>{
-        populateInitialComments();
-    },[this]);
-
 
     return (
         <div className="app">
-            <NavbarComponent comments={comments}
+            <NavbarComponent count={count}
                              orderByTop={orderByTop}
                              orderByNewest={orderByNewest}/>
 
@@ -55,7 +69,7 @@ const App = () => {
                             <img className="bili-avatar-img" src={avatar} alt="Profile"/>
                         </div>
                     </div>
-                    <AddComment/>
+                    <AddComment onAdded={onNewCommentAdded}/>
                 </div>
                 {/* comment list */}
                 <div className="reply-list">
