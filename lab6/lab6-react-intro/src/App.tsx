@@ -14,23 +14,23 @@ import dayjs from "dayjs";
 
 
 let initialComments: CommentModel[] = [];
-const populateInitialComments = () => {
 
-    for (const defaultItem of defaultList) {
-        initialComments.push({
-            ...defaultItem
-        } as CommentModel);
-    }
-
-    initialComments = _.orderBy(initialComments, ['like'], ['desc'])
-}
-
-populateInitialComments();
 const App = () => {
     const [comments,
         setComments] = useState(initialComments)
 
-    const [count, setCount]= useState(initialComments.length);
+    const [count, setCount] = useState(initialComments.length);
+
+    useEffect(() => {
+        async function getList() {
+            const res = await fetch('http://localhost:3004/data');
+            const data = await res.json();
+            console.log(data)
+            setComments(_.orderBy(data.comments, 'like', 'desc'));
+        }
+
+        getList();
+    }, []);
     const orderByTop = () => {
         setComments(_.orderBy(comments, ['like'], ['desc']));
     }
@@ -40,14 +40,17 @@ const App = () => {
     }
 
 
-
     const onNewCommentAdded = (comment: string) => {
         const newComment: CommentModel = {
             rpid: comments.length + 1,
             content: comment,
             ctime: dayjs().format('MM-DD HH:mm').toString(),
-            like: 0
-
+            like: 0,
+            user: {
+                uid: '618085',
+                avatar:'',
+                uname: 'Shawal',
+            }
         }
 
         setComments([newComment, ...comments]);
