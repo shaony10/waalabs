@@ -1,13 +1,14 @@
 import classnames from "classnames";
 import {useState} from "react";
+import {CommentModel} from "../model/CommentModel";
 
 export type NavProps={
-    count:number,
+    comments:CommentModel[],
     orderByTop:any,
     orderByNewest:any
 }
 export default function NavbarComponent(props: NavProps) {
-    const [count, setCount] = useState(props.count);
+    const [comments, setCount] = useState(props.comments);
     const [isTop, setIsTop] = useState(true);
 
 
@@ -28,7 +29,7 @@ export default function NavbarComponent(props: NavProps) {
                     <li className="nav-title">
                         <span className="nav-title-text">Comments</span>
                         {/* Like */}
-                        <span className="total-reply">{count}</span>
+                        <span className="total-reply">{comments.length}</span>
                     </li>
                     <li className="nav-sort">
                         {/* highlight class name： active */}

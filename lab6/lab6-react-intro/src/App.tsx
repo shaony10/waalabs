@@ -42,7 +42,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <NavbarComponent count={comments.length}
+            <NavbarComponent comments={comments}
                              orderByTop={orderByTop}
                              orderByNewest={orderByNewest}/>
 
