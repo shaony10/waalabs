@@ -1,6 +1,7 @@
 import classnames from "classnames";
 import {useState} from "react";
 import {CommentModel} from "../model/CommentModel";
+import {useCommentsConext} from "../context/CommentsContext";
 
 export type NavProps={
     count:number,
@@ -11,7 +12,7 @@ export default function NavbarComponent(props: NavProps) {
     const [count, setCount] = useState(props.count);
     const [isTop, setIsTop] = useState(true);
 
-
+    const {comments, loadComments} = useCommentsConext();
     const orderByTopHandler = () => {
         setIsTop(true);
         props.orderByTop();

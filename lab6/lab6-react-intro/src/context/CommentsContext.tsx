@@ -4,7 +4,7 @@ import {createContext, ReactNode, useContext, useState} from "react";
 
 interface CommentsContextType {
     comments: CommentModel[],
-    loadComments: () => void
+    loadComments: (comments:CommentModel[]) => void
 }
 
 const CommentsContext = createContext<CommentsContextType | undefined>(undefined);
@@ -13,8 +13,8 @@ const CommentsContext = createContext<CommentsContextType | undefined>(undefined
 // functional Component
 export const CommentsProvider = ({children}: { children: ReactNode }) => {
     const [comments, setComments] = useState(new Array<CommentModel>());
-    const loadComments = () => {
-        setComments(new Array<CommentModel>());
+    const loadComments = (comments: CommentModel[]) => {
+        setComments(comments);
     }
 
     return (
@@ -24,7 +24,7 @@ export const CommentsProvider = ({children}: { children: ReactNode }) => {
     );
 }
 
-export const useThemeConext = () => {
+export const useCommentsConext = () => {
     const context = useContext(CommentsContext);
     if (!context) {
         throw new Error('Component must be in CommentsContext');

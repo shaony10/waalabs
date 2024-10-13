@@ -5,9 +5,9 @@ import SingleComment from "./components/SingleComment";
 import NavbarComponent from "./components/NavbarComponent";
 import {CommentModel} from "./model/CommentModel";
 import {useEffect, useState} from "react";
-import {defaultList} from "./data/data";
 import _ from "lodash";
 import dayjs from "dayjs";
+import {CommentsProvider, useCommentsConext} from './context/CommentsContext';
 
 
 // Comment List data
@@ -16,27 +16,29 @@ import dayjs from "dayjs";
 let initialComments: CommentModel[] = [];
 
 const App = () => {
-    const [comments,
-        setComments] = useState(initialComments)
+    /*const [comments,
+        setComments] = useState(initialComments)*/
 
     const [count, setCount] = useState(initialComments.length);
+
+    const {comments, loadComments} = useCommentsConext();
 
     useEffect(() => {
         async function getList() {
             const res = await fetch('http://localhost:3004/data');
             const data = await res.json();
             console.log(data)
-            setComments(_.orderBy(data.comments, 'like', 'desc'));
+            loadComments(_.orderBy(data.comments, 'like', 'desc'));
         }
 
         getList();
     }, []);
     const orderByTop = () => {
-        setComments(_.orderBy(comments, ['like'], ['desc']));
+        loadComments(_.orderBy(comments, ['like'], ['desc']));
     }
 
     const orderByNewest = () => {
-        setComments(_.orderBy(comments, ['ctime'], ['asc']));
+        loadComments(_.orderBy(comments, ['ctime'], ['asc']));
     }
 
 
@@ -48,16 +50,17 @@ const App = () => {
             like: 0,
             user: {
                 uid: '618085',
-                avatar:'',
+                avatar: '',
                 uname: 'Shawal',
             }
         }
 
-        setComments([newComment, ...comments]);
+        loadComments([newComment, ...comments]);
         setCount(comments.length);
     }
 
     return (
+
         <div className="app">
             <NavbarComponent count={count}
                              orderByTop={orderByTop}
