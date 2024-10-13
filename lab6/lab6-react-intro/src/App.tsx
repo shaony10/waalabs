@@ -4,41 +4,32 @@ import AddComment from "./components/AddComment";
 import SingleComment from "./components/SingleComment";
 import NavbarComponent from "./components/NavbarComponent";
 import {CommentModel} from "./model/CommentModel";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import _ from "lodash";
 import dayjs from "dayjs";
-import {CommentsProvider, useCommentsConext} from './context/CommentsContext';
+import { useCommentsConext} from './context/CommentsContext';
 
-
-// Comment List data
-
-
-let initialComments: CommentModel[] = [];
 
 const App = () => {
-    /*const [comments,
-        setComments] = useState(initialComments)*/
 
-    const [count, setCount] = useState(initialComments.length);
-
-    const {comments, loadComments} = useCommentsConext();
+    const {comments, populateComments} = useCommentsConext();
 
     useEffect(() => {
         async function getList() {
             const res = await fetch('http://localhost:3004/data');
             const data = await res.json();
-            console.log(data)
-            loadComments(_.orderBy(data.comments, 'like', 'desc'));
+            populateComments(_.orderBy(data.comments, 'like', 'desc'));
         }
 
-        getList();
+        (async ()=>await getList())();
+
     }, []);
     const orderByTop = () => {
-        loadComments(_.orderBy(comments, ['like'], ['desc']));
+        populateComments(_.orderBy(comments, ['like'], ['desc']));
     }
 
     const orderByNewest = () => {
-        loadComments(_.orderBy(comments, ['ctime'], ['asc']));
+        populateComments(_.orderBy(comments, ['ctime'], ['asc']));
     }
 
 
@@ -55,15 +46,13 @@ const App = () => {
             }
         }
 
-        loadComments([newComment, ...comments]);
-        setCount(comments.length);
+        populateComments([newComment, ...comments]);
     }
 
     return (
 
         <div className="app">
-            <NavbarComponent count={count}
-                             orderByTop={orderByTop}
+            <NavbarComponent orderByTop={orderByTop}
                              orderByNewest={orderByNewest}/>
 
             <div className="reply-wrap">
@@ -75,7 +64,7 @@ const App = () => {
                             <img className="bili-avatar-img" src={avatar} alt="Profile"/>
                         </div>
                     </div>
-                    <AddComment onAdded={onNewCommentAdded}/>
+                    <AddComment/>
                 </div>
                 {/* comment list */}
                 <div className="reply-list">

@@ -4,22 +4,20 @@ import {CommentModel} from "../model/CommentModel";
 import {useCommentsConext} from "../context/CommentsContext";
 
 export type NavProps={
-    count:number,
     orderByTop:any,
     orderByNewest:any
 }
 export default function NavbarComponent(props: NavProps) {
-    const [count, setCount] = useState(props.count);
-    const [isTop, setIsTop] = useState(true);
+    const {comments, sortingType,updateSortingType} = useCommentsConext();
 
-    const {comments, loadComments} = useCommentsConext();
+
     const orderByTopHandler = () => {
-        setIsTop(true);
+        updateSortingType('top');
         props.orderByTop();
 
     }
     const orderByNewestHandler = () => {
-        setIsTop(false);
+        updateSortingType('newest');
         props.orderByNewest();
     }
     return (
@@ -30,13 +28,13 @@ export default function NavbarComponent(props: NavProps) {
                     <li className="nav-title">
                         <span className="nav-title-text">Comments</span>
                         {/* Like */}
-                        <span className="total-reply">{count}</span>
+                        <span className="total-reply">{comments.length}</span>
                     </li>
                     <li className="nav-sort">
                         {/* highlight class name： active */}
-                        <span className={classnames('nav-item', {active: isTop})}
+                        <span className={classnames('nav-item', {active: sortingType==='top'})}
                               onClick={orderByTopHandler}>Top</span>
-                        <span className={classnames('nav-item', {active: !isTop})}
+                        <span className={classnames('nav-item', {active: sortingType==='newest'})}
                               onClick={orderByNewestHandler}>Newest</span>
                     </li>
                 </ul>
