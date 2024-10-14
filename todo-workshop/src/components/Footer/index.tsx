@@ -1,13 +1,9 @@
-import React, {ChangeEvent, useContext} from "react";
+import React, {ChangeEvent} from "react";
 import './index.css';
-import TodoContext from "../../context/TodoContext";
+import {useTodoContext} from "../../context/CustomTodoContext";
 
-export default function () {
-    const context = useContext(TodoContext);
-    if (!context) {
-        throw new Error("TodoContext must be used within a ToDoContextProvider");
-    }
-    const {todos, selectedCount, deleteSelectedItems, onChangeAll} = context;
+export default function Footer() {
+    const {todos, selectedCount, deleteSelectedItems, onChangeAll} = useTodoContext();
 
     const deleteSelectedItemsHandler = () => {
         const response = window.confirm("Delete all selected items?");

@@ -1,14 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import './index.css';
 import Item from "../Item";
-import TodoContext from "../../context/TodoContext";
+import {useTodoContext} from "../../context/CustomTodoContext";
 
-export default function () {
-    const context = useContext(TodoContext);
-    if (!context) {
-        throw new Error("TodoContext must be used within a ToDoContextProvider");
-    }
-    const {todos} = context;
+export default function Main() {
+    const {todos} = useTodoContext();
     return (
         <ul className="todo-main">
             {todos.map((todo, index) =>

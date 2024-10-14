@@ -1,19 +1,15 @@
-import React, {ChangeEvent, useContext} from "react";
+import React, {ChangeEvent} from "react";
 import './index.css';
 import Todo from "../../types/Todo";
-import TodoContext from "../../context/TodoContext";
+import {useTodoContext} from "../../context/CustomTodoContext";
 
 type PropType = {
     todo: Todo
 }
-export default function (props:PropType) {
+export default function Item(props:PropType) {
     const {todo} = props;
 
-    const context = useContext(TodoContext);
-    if (!context){
-        throw new Error("TodoContext must be used within a ToDoContextProvider");
-    }
-    const { onChecked, onDeleteItem} = context;
+    const { onChecked, onDeleteItem} = useTodoContext();
 
     const changeEventHandler = (e: ChangeEvent<HTMLInputElement>)=>{
         console.log(e.currentTarget.value);
