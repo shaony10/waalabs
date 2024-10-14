@@ -1,88 +1,29 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {v4 as uuidv4} from 'uuid';
+import React, {useContext, useEffect} from 'react';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main"
 
-import Todo from "./types/Todo";
 import './App.css';
 import TodoContext from "./context/TodoContext";
 
 function App() {
     const context = useContext(TodoContext);
-    if (!context){
+    if (!context) {
         throw new Error("TodoContext must be used within a ToDoContextProvider");
     }
-    const {todos} = context;
-    const [totalCount, setTotalCount] = useState(0);
-    const [selectedCount, setSelectedCount] = useState(0);
-
+    const {populateTodos} = context;
 
     useEffect(() => {
-        //populate todo
-        context?.populateTodos();
-        updateCounts(context.todos);
+        populateTodos();
     }, []);
 
-    const addTodo = (task: string) => {
-        const newTodo = {
-            id: uuidv4(),
-            todo:task,
-            completed:false,
-            userId:1
-        } as Todo;
-
-        updateCounts([newTodo, ...todos]);
-    }
-    const onChecked = (id:number|string, completed: boolean)=>{
-        const newTodos = todos!.map(todo => {
-            if (todo.id === id) return ({ ...todo, completed });
-            else return todo;
-        });
-
-
-        updateCounts(newTodos);
-
-    }
-
-    const updateCounts = (newTodos:Todo[])=>{
-        //setTodos(newTodos);
-        setTotalCount(newTodos.length);
-        const selectedItems = newTodos.filter(t=> t.completed);
-        setSelectedCount(selectedItems.length);
-    }
-    const onDeleteItem = (id:number|string)=>{
-        const newTodos = todos!.filter(todo => {
-            return (todo.id !== id);
-        });
-        updateCounts(newTodos);
-    }
-
-    const deleteSelectedItems = ()=>{
-        const newTodos = todos!.filter(todo => {
-            return !todo.completed;
-        });
-        updateCounts(newTodos);
-    }
-    const onChangeAll=(isChecked:boolean)=> {
-        const newTodos = todos!.map(todo => {
-            return ({ ...todo, completed:isChecked });
-
-        });
-
-
-        updateCounts(newTodos);
-    }
     return (
         <div className="todo-container">
             <div className="todo-wrap">
                 <h1>TODO list workshop</h1>
-                <Header addTodo={addTodo}/>
-                <Main todos={todos} onChecked={onChecked} onDelete={onDeleteItem}/>
-                <Footer totalCount={totalCount}
-                        selectedCount={selectedCount}
-                        onChangeAll={onChangeAll}
-                deleteSelectedItems={deleteSelectedItems}/>
+                <Header/>
+                <Main/>
+                <Footer/>
             </div>
         </div>
     );

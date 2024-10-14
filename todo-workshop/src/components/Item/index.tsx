@@ -1,14 +1,20 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useContext} from "react";
 import './index.css';
 import Todo from "../../types/Todo";
+import TodoContext from "../../context/TodoContext";
 
 type PropType = {
-    todo: Todo,
-    onChecked:(id:number|string, completed: boolean)=>void,
-    onDelete:(id:number|string)=>void
+    todo: Todo
 }
 export default function (props:PropType) {
-    const {todo,onChecked, onDelete} = props;
+    const {todo} = props;
+
+    const context = useContext(TodoContext);
+    if (!context){
+        throw new Error("TodoContext must be used within a ToDoContextProvider");
+    }
+    const { onChecked, onDeleteItem} = context;
+
     const changeEventHandler = (e: ChangeEvent<HTMLInputElement>)=>{
         console.log(e.currentTarget.value);
         console.log(e.currentTarget.checked);
@@ -20,7 +26,7 @@ export default function (props:PropType) {
         const response = window.confirm("Are you sure to delete?");
         console.log(response);
         if (response){
-            onDelete(todo.id);
+            onDeleteItem(todo.id);
         }
     }
     return <li>

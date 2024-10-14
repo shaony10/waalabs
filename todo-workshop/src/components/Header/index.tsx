@@ -1,16 +1,19 @@
-import {KeyboardEvent} from "react";
+import {KeyboardEvent, useContext} from "react";
 import './index.css';
+import TodoContext from "../../context/TodoContext";
 
-type PropType={
-    addTodo:(task:string)=>void;
-}
-export default function(props:PropType){
+export default function(){
+    const context = useContext(TodoContext);
+    if (!context){
+        throw new Error("TodoContext must be used within a ToDoContextProvider");
+    }
+    const { addTodo} = context;
     const keyUpHandler =(e:KeyboardEvent<HTMLInputElement>)=>{
 
         if(e.key==="Enter"){
             console.log("Enter pressed");
             const value = e.currentTarget.value;
-            props.addTodo(value);
+            addTodo(value);
             console.log(value);
 
             e.currentTarget.value  ="";
