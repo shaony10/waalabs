@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -6,22 +6,21 @@ import Main from "./components/Main"
 
 import Todo from "./types/Todo";
 import './App.css';
-import TodoContext from "./context/TodoContext";
 
 function App() {
-    const context = useContext(TodoContext);
-    if (!context){
-        throw new Error("TodoContext must be used within a ToDoContextProvider");
-    }
-    const {todos} = context;
+    const [todos, setTodos] = useState<Todo[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [selectedCount, setSelectedCount] = useState(0);
-
-
     useEffect(() => {
         //populate todo
-        context?.populateTodos();
-        updateCounts(context.todos);
+        async function getTodos() {
+            ///https://dummyjson.com/todos'
+            const response = await fetch('http://localhost:3004/todos');
+            const data = await response.json();
+            updateCounts(data);
+        }
+
+        getTodos();
     }, []);
 
     const addTodo = (task: string) => {
@@ -46,7 +45,7 @@ function App() {
     }
 
     const updateCounts = (newTodos:Todo[])=>{
-        //setTodos(newTodos);
+        setTodos(newTodos);
         setTotalCount(newTodos.length);
         const selectedItems = newTodos.filter(t=> t.completed);
         setSelectedCount(selectedItems.length);
