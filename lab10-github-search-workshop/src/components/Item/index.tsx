@@ -7,7 +7,7 @@ type PropType = {
 export default function Item(props:PropType) {
     const {user} = props;
     return <div className="card">
-        <a href="https://github.com/reactjs" target="_blank">
+        <a href={user.url} target="_blank">
             <img src={user.avatar_url} style={{width: "100px"}}/>
         </a>
         <p className="card-text">{user.login}</p>
