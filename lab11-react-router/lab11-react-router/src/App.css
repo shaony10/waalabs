@@ -1,3 +1,7 @@
 .App nav, .content{
     padding: 15px;
 }
+
+.p-10{
+    padding: 10px;
+}

@@ -8,14 +8,15 @@ export default function PostDetails() {
     const [post, setPost] = useState({id:0,title:'',body:''});
     const {id} = useParams();
 
-    //const post = {id:0,title:'cxzcxz',body:'cxzcxz'};
-
     useEffect(() => {
-        fetch('https://dummyjson.com/posts/'+id)
-            .then(res => res.json())
-            .then((result:PostModel) => {
-                setPost({...result})
-            });
+        if (id){
+            fetch('https://dummyjson.com/posts/' + id)
+                .then(res => res.json())
+                .then((result: PostModel) => {
+                    setPost({...result})
+                });
+        }
+
     }, []);
     return <>
         <div>
