@@ -23,7 +23,7 @@ export default function EditPost() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         fetch('https://dummyjson.com/posts/' + id, {
             method: 'PUT', /* or PATCH */
             headers: {'Content-Type': 'application/json'},
